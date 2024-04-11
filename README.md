@@ -1,0 +1,1 @@
+# cocoa-typescript-config
