@@ -30,7 +30,10 @@ jobs:
       - name: Build package
         run: yarn build
 
+      - name: Change to dist folder
+        run: cd dist
+
       - name: Publish to npm
-        run: npm publish dist
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
