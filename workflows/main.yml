@@ -1,7 +1,6 @@
-name: PR Buil
+name: PR CI
 
-on:
-  workflow_run:
+on: "workflow_run"
 
 jobs:
   build:
@@ -26,6 +25,7 @@ jobs:
       contents: write
       issues: write
       checks: write
+      repository-projects: read
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -35,6 +35,9 @@ jobs:
 
     - name: Install modules
       run: yarn install
+
+    - name: Install modules
+      run: yarn lint
 
     - uses: reviewdog/action-eslint@v1
       name: Run ESLint Reporter
@@ -66,7 +69,7 @@ jobs:
       run: yarn install
 
     - name: Run tests
-      run: yarn test
+      run: yarn test-ci
 
     - name: Monitor coverage
       uses: slavcodev/coverage-monitor-action@v1
@@ -83,14 +86,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: read
-      deployments: read
-      statuses: read
-      checks: write
       pull-requests: write
-      contents: write
+      contents: read
       issues: write
       repository-projects: read
-      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -107,7 +106,7 @@ jobs:
         if: github.event.action == 'ready_for_review'
         uses: peter-evans/create-or-update-comment@v4
         with:
-          issue-number: ${{ github.event.pull_requests.number }}
+          issue-number: ${{ github.event.pull_request.number }}
           body: ${{ steps.template.outputs.result }}
           reactions: rocket
 

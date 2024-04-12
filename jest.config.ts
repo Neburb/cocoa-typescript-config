@@ -12,7 +12,7 @@ export default {
   transform: {
     '^.+\\.ts?$': 'ts-jest'
   },
-  coverageReporters: ["json-summary"],
+  coverageReporters: ["clover"],
 
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   roots: [
