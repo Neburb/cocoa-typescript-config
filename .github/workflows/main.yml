@@ -100,7 +100,7 @@ jobs:
         id: template
         uses: chuhlomin/render-template@v1.4
         with:
-          template: cocoa-typescript-config/workflows/pr-checklist.md
+          template: cocoa-typescript-config/.github/workflows/pr-checklist.md
 
       - name: Create comment
         if: github.event.action == 'ready_for_review'
