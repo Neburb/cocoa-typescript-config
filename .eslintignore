@@ -1,0 +1,6 @@
+dist
+node_modules
+jest.config.ts
+plugins/*
+cocoa-typescript-config
+test

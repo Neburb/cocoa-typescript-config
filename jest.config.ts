@@ -1,7 +1,7 @@
 export default {
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: 'coverage',
+  coverageDirectory: '../coverage',
   coveragePathIgnorePatterns: [
     "/node_modules/"
   ],
@@ -14,6 +14,8 @@ export default {
   },
   coverageReporters: ["json-summary"],
 
-  transformIgnorePatterns: ['<rootDir>/node_modules/']
-
+  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  roots: [
+    "../test"
+],
 }

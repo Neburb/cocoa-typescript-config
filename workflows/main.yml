@@ -1,0 +1,109 @@
+name: PR Buil
+
+on:
+  workflow_run:
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install modules
+      run: yarn install
+
+    - name: Compile typescript
+      run: yarn build
+  eslint:
+    name: 'Linter'
+    needs: build
+    permissions:
+      pull-requests: write
+      contents: write
+      issues: write
+      checks: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install modules
+      run: yarn install
+
+    - uses: reviewdog/action-eslint@v1
+      name: Run ESLint Reporter
+      with:
+        reporter: github-check
+        fail_on_error: true
+        eslint_flags: 'src/'
+  unit-tests:
+    name: 'Unit Tests'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      deployments: read
+      statuses: read
+      checks: write
+      pull-requests: write
+      contents: write
+      issues: write
+      repository-projects: read
+      packages: read
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install modules
+      run: yarn install
+
+    - name: Run tests
+      run: yarn test
+
+    - name: Monitor coverage
+      uses: slavcodev/coverage-monitor-action@v1
+      continue-on-error: true
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        coverage_path: "coverage/clover.xml"
+        threshold_alert: 70
+        threshold_warning: 90
+        threshold_metric: "lines"
+        comment_mode: update
+  checklist:
+    name: 'Checklist'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      deployments: read
+      statuses: read
+      checks: write
+      pull-requests: write
+      contents: write
+      issues: write
+      repository-projects: read
+      packages: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Render template
+        id: template
+        uses: chuhlomin/render-template@v1.4
+        with:
+          template: .github/pr-checklist.md
+
+      - name: Create comment
+        if: github.event.action == 'ready_for_review'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_requests.number }}
+          body: ${{ steps.template.outputs.result }}
+          reactions: rocket
+
+      - name: 'Checklist'
+        uses: mheap/require-checklist-action@v2
+        with:
+          requireChecklist: false
