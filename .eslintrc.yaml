@@ -23,5 +23,5 @@ rules: {
   "no-restricted-syntax": "off",
   "class-methods-use-this": "off",
   "no-param-reassign": "off",
-  "no-continue": "off"
+  '@typescript-eslint/restrict-template-expressions': 'off'
 }
