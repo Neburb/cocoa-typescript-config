@@ -1,21 +1,28 @@
 export default {
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: '../coverage',
+  coverageDirectory: 'coverage',
   coveragePathIgnorePatterns: [
-    "/node_modules/"
+    "node_modules/"
   ],
   coverageProvider: 'v8',
-  modulePathIgnorePatterns: ['/dist', '/node_modules'],
+  modulePathIgnorePatterns: ['dist', 'node_modules'],
   preset: 'ts-jest',
   testEnvironment: "node",
   transform: {
     '^.+\\.ts?$': 'ts-jest'
   },
-  coverageReporters: ["clover"],
-
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  coverageReporters: ["clover", "lcov", "cobertura", "text"],
+  coverageThreshold: {
+    global: {
+      lines: 90,
+      statements: 90
+    }
+  },
+  collectCoverageFrom: [ "src/**/*.{js,jsx,ts,tsx}", ],
+  transformIgnorePatterns: ['node_modules/'],
+  rootDir: "../.",
   roots: [
-    "../test"
-],
+    "./"
+  ],
 }
