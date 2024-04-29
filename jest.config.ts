@@ -3,7 +3,9 @@ export default {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coveragePathIgnorePatterns: [
-    "node_modules/"
+    "node_modules/",
+    'interfaces/*',
+    'model/*'
   ],
   coverageProvider: 'v8',
   modulePathIgnorePatterns: ['dist', 'node_modules'],
@@ -19,7 +21,7 @@ export default {
       statements: 90
     }
   },
-  collectCoverageFrom: [ "src/**/*.{js,jsx,ts,tsx}", ],
+  collectCoverageFrom: [ "src/**/*.{js,jsx,ts,tsx}" ],
   transformIgnorePatterns: ['node_modules/'],
   rootDir: "../.",
   roots: [
