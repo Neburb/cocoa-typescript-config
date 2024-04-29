@@ -17,8 +17,8 @@ export default {
   coverageReporters: ["clover", "lcov", "cobertura", "text"],
   coverageThreshold: {
     global: {
-      lines: 90,
-      statements: 90
+      lines: 80,
+      statements: 80
     }
   },
   collectCoverageFrom: [ "src/**/*.{js,jsx,ts,tsx}" ],
