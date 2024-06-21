@@ -5,7 +5,11 @@ export default {
   coveragePathIgnorePatterns: [
     "node_modules/",
     'interfaces/*',
-    'model/*'
+    'model/*',
+    'src/index.ts',
+    'config/*',
+    'errors/*',
+    'error/*'
   ],
   coverageProvider: 'v8',
   modulePathIgnorePatterns: ['dist', 'node_modules'],
