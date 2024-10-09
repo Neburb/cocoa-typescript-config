@@ -19,5 +19,5 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   eslintConfigPrettier,
-  { ignores: ["node_modules", "dist/**", "build/**", "webpack.config.js"] }
+  { ignores: ["node_modules", "dist/**", "build/**", "webpack.config.js", "cocoa-typescript-config"] }
 ];
