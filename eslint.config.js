@@ -1,9 +1,9 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import eslintConfigPrettier from "eslint-config-prettier";
+const globals = require("globals");
+const pluginJs = require("@eslint/js");
+const tseslint = require("typescript-eslint");
+const eslintConfigPrettier = require("eslint-config-prettier");
 
-export default [
+module.exports = [
   {
     files: ["**/*.{ts}"]
   },
@@ -12,7 +12,7 @@ export default [
         globals: globals.browser,
         parserOptions: {
             projectService: true,
-            tsconfigRootDir: import.meta.dirname,
+            tsconfigRootDir: __dirname,
         },
     }
   },
